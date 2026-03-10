@@ -1,14 +1,7 @@
 import pytest
 from datetime import date
 from src.lab_01.main.model import Car, CarFuncs
-from src.lab_01.main.validate import (
-
-    validate_car_brand,
-    validate_car_model,
-    validate_mileage,
-    validate_year_of_manufacture
-
-)
+from src.lab_01.main.validate import *
 
 equation_test = [
     
@@ -109,7 +102,7 @@ def test_conditions(car_object, engine_status, lights_status, signals_status, dr
 
     if func in ['lights', 'signals']:
         source.toggle_car_funcs(func)
-        
+
     else:
         raise ValueError
 
