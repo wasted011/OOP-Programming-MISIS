@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 # --// Инициализация(создание) объекта класса Car.\\--
 
-demo_object_01 = Car(_brand="Toyota", _model="Camry", mileage=50000, _year_of_manufacture= date(2015, 1, 1))
+demo_object_01 = Car(_brand="Toyota", _model="Camry", _mileage=50000, _year_of_manufacture= date(2015, 1, 1))
 
 # --// Вывод инициализированного объекта demo_object через print().\\--
 
@@ -15,7 +15,7 @@ print(demo_object_01)
 # --// Сравнение двух объектов (demo_object_02, demo_object_03) (Тандер-метод: __eq__). \\--
 
 demo_object_02 = Car(_brand="Honda", _model="Civic", _mileage=45000, _year_of_manufacture=date(2000, 1, 1))
-demo_object_03 = Car(_brand="Masserati", _model="Quattroporte", _mileage=50000, year_of_manufacture=date(2025, 1, 1))
+demo_object_03 = Car(_brand="Masserati", _model="Quattroporte", _mileage=50000, _year_of_manufacture=date(2025, 1, 1))
 
 # --// test_demo_object_02 - Для того, чтобы показать что если объекты имеют идентичные атрибуты, они равны.\\--
 
@@ -95,7 +95,7 @@ print(CarWithOnlyDoors.doors)
 
 # Доступ через экземпляр:
 
-demo_examplar = Car(_brand="Ford", _model="Mustang", _mileage=10000, year_of_manufacture=date(2018, 1, 1))
+demo_examplar = Car(_brand="Ford", _model="Mustang", _mileage=10000, _year_of_manufacture=date(2018, 1, 1))
 
 print(demo_examplar.mileage)
 
@@ -131,35 +131,37 @@ scenario_04 = Car(_brand="Porshe", _model="Panamera", _mileage=10000, _year_of_m
 scenario_05 = Car(_brand="Pagani Zonda", _model="r", _mileage=5000, _year_of_manufacture=date(2010, 1, 1))
 scenario_06 = Car(_brand="Audi", _model="R8", _mileage=25000, _year_of_manufacture=date(2015, 1, 1))
 
-def demo_log_properties(variable: Car, engine_condition: bool, func: str):
+final_scenario_04 = CarFuncs(scenario_04, True, False, False, 'Neutral')
+final_scenraio_05 = CarFuncs(scenario_05, False, False, False, 'Neutral')
+final_scenraio_06 = CarFuncs(scenario_06, True, True, True, 'Forward')
 
-    if not isinstance(engine_condition, bool):
+def demo_log_properties(variable: CarFuncs, func: str):
+
+    if not isinstance(variable, CarFuncs):
         raise ValueError
     
     if not isinstance(func, str) or func not in ['lights', 'signals', 'drive_mod']:
         return "Incorrect function"
     
-    test_object = CarFuncs(variable, engine_condition, False, False, "Neutral")
-    
     try:
 
         if func in ['lights', 'signals']:
-            return test_object.toggle_car_funcs(func)
+            return variable.toggle_car_funcs(func)
         
         elif func == 'drive_mod':
 
-            which_func = input('Choose an option: Forward, Backward, Neutral')
+            which_func = input('Choose an option: Forward, Backward, Neutral: ')
 
             if which_func in ['Forward', 'Backward', 'Neutral']:
-                return test_object.toggle_drive_mod(which_func)
+                return variable.toggle_drive_mod(which_func)
             
             return "Incorrect option"
         
     except ValueError as error:
         return f"An error has occured: {error}"
         
-print(demo_log_properties(variable=scenario_04, engine_condition=True, func='lights'))
-print(demo_log_properties(variable=scenario_05, engine_condition=False, func='signals'))
-print(demo_log_properties(variable=scenario_06, engine_condition=True, func='drive_mod'))
+print(demo_log_properties(variable=final_scenario_04, func='lights'))
+print(demo_log_properties(variable=final_scenraio_05, func='signals'))
+print(demo_log_properties(variable=final_scenraio_06, func='drive_mod'))
 
 # --\\----------------------------------------------------------------//--

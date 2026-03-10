@@ -1,9 +1,14 @@
-import sys, datetime
-sys.path.append('2nd sem/src/lab_01/main')
-
+import pytest
 from datetime import date
 from src.lab_01.main.model import Car, CarFuncs
-import pytest
+from src.lab_01.main.validate import (
+
+    validate_car_brand,
+    validate_car_model,
+    validate_mileage,
+    validate_year_of_manufacture
+
+)
 
 equation_test = [
     
@@ -14,8 +19,8 @@ equation_test = [
 
 incorrect_creation_test = [
 
-    ("", "Camry", 50000, date(2015, 1, 1), "Invalid brand value."),
-    ("Toyota", "", 50000, date(2015, 1, 1), "Invalid model value.")
+    (" ", "Camry", 50000, date(2015, 1, 1), ValueError),
+    ("Toyota", " ", 50000, date(2015, 1, 1), ValueError)
 
 ]
 
@@ -28,29 +33,29 @@ change_setter_test = [
 
 restriction_setter_test = [
 
-    ("Toyota", "Camry", 50000, date(2015, 1, 1), "mileage", -100, "Invalid mileage value."),
-    ("Toyota", "Camry", 50000, date(2015, 1, 1), "year_of_manufacture", date(2028, 1, 1), "Invalid year of manufacture value.")
+    ("Toyota", "Camry", 50000, date(2015, 1, 1), "mileage", -100, ValueError),
+    ("Toyota", "Camry", 50000, date(2015, 1, 1), "year_of_manufacture", date(2028, 1, 1), ValueError)
 
 ]
 
 access_to_attribute_test = [
 
-    ("Toyota", "Camry", 50000, date(2015, 1, 1), "brand", "Toyota")
+    ("Toyota", "Camry", 50000, date(2015, 1, 1), "brand", "Toyota"),
     ("Toyota", "Camry", 50000, date(2015, 1, 1), "model", "Camry")
 
 ]
 
 validation_test = [
     
-    ("Toyota", "Camry", 50000, date(2015, 1, 1), "brand", True)
-    ("", "Camry", 50000, date(2015, 1, 1), "brand", False)
+    ("Toyota", "brand", True),
+    ("", "model", False)
 
 ]
 
 conditions_test = [
 
-    (Car(_brand="Toyota",_model="Camry", _mileage=50000, _year_of_manufacture=date(2015, 1, 1)), True, True, True, "Neutral", "Lights turned Off.")
-    (Car(_brand="Toyota",_model="Camry", _mileage=50000, _year_of_manufacture=date(2015, 1, 1)), False, False, False, "Forward", "Cannot change drive mode. The engine is off.")
+    (Car(_brand="Toyota",_model="Camry", _mileage=50000, _year_of_manufacture=date(2015, 1, 1)), True, True, True, "Neutral", "lights", False),
+    (Car(_brand="Toyota",_model="Camry", _mileage=50000, _year_of_manufacture=date(2015, 1, 1)), False, False, False, "Neutral", "signals", False)
 
 ]
 
@@ -58,12 +63,16 @@ conditions_test = [
 def test_eq(brand, model, mileage, year_of_manufacture, brand2, model2, mileage2, year_of_manufacture2):
     test_class_object_01 = Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture)
     test_class_object_02 = Car(_brand=brand2, _model=model2, _mileage=mileage2, _year_of_manufacture=year_of_manufacture2)
-    assert test_class_object_01 == test_class_object_02
+    
+    if brand == brand2:
+        assert test_class_object_01 == test_class_object_02
+    else:
+        assert test_class_object_01 != test_class_object_02
 
 @pytest.mark.parametrize('brand, model, mileage, year_of_manufacture, expected', incorrect_creation_test)
 def test_incorrect_creation(brand, model, mileage, year_of_manufacture, expected):
-    source = Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture)
-    assert source == expected
+    with pytest.raises(expected):
+        Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture)
 
 @pytest.mark.parametrize('brand, model, mileage, year_of_manufacture, attribute, value, expected', change_setter_test)
 def test_change_setter(brand, model, mileage, year_of_manufacture, attribute, value, expected):
@@ -73,19 +82,35 @@ def test_change_setter(brand, model, mileage, year_of_manufacture, attribute, va
 @pytest.mark.parametrize('brand, model, mileage, year_of_manufacture, attribute, value, expected', restriction_setter_test)
 def test_restriction_setter(brand, model, mileage, year_of_manufacture, attribute, value, expected):
     source = Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture)
-    assert setattr(source, attribute, value) == expected
+    with pytest.raises(expected):
+        setattr(source, attribute, value)
     
 @pytest.mark.parametrize('brand, model, mileage, year_of_manufacture, attribute, expected', access_to_attribute_test)
 def test_access_to_atribute(brand, model, mileage, year_of_manufacture, attribute, expected):
     source = Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture)
     assert getattr(source, attribute) == expected
 
-@pytest.mark.parametrize('brand, model, mileage, year_of_manufacture attribute expected', validation_test)
-def test_validation(brand, model, mileage, year_of_manufacture, attribute, expected):
-    source = getattr(Car(_brand=brand, _model=model, _mileage=mileage, _year_of_manufacture=year_of_manufacture), attribute)
+@pytest.mark.parametrize('element, attribute, expected', validation_test)
+def test_validation(element, attribute, expected):
+    if attribute == "brand":
+        source = validate_car_brand(element)
+    elif attribute == "model":
+        source = validate_car_model(element)
+    elif attribute == "mileage":
+        source = validate_mileage(element)
+    elif attribute == "year_of_manufacture":
+        source = validate_year_of_manufacture(element)
+        
     assert source == expected
 
-@pytest.mark.parametrize('object, engine_status, lights_status, signals_status, drive_mod, expected', conditions_test)
-def test_conditions(object, engine_status, lights_status, signals_status, drive_mod, expected):
-    source = CarFuncs(object, engine=engine_status, lights=lights_status, signals=signals_status, drive_mod=drive_mod).toggle_car_funcs('lights')
-    assert source == expected
+@pytest.mark.parametrize('car_object, engine_status, lights_status, signals_status, drive_mod, func, expected', conditions_test)
+def test_conditions(car_object, engine_status, lights_status, signals_status, drive_mod, func, expected):
+    source = CarFuncs(car_object, engine=engine_status, lights=lights_status, signals=signals_status, drive_mod=drive_mod)
+
+    if func in ['lights', 'signals']:
+        source.toggle_car_funcs(func)
+        
+    else:
+        raise ValueError
+
+    assert getattr(source, func) == expected

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 
-from validate import (
+from src.lab_01.main.validate import (
 
     validate_car_brand,
     validate_car_model,
@@ -142,9 +142,6 @@ class CarFuncs:
     # --// Пост-валидация атрибутов дата-класса CarFuncs при его создании.  \\--
 
     def __post_init__(self):
-
-        if not validate_car_funcs_car(self._car):
-            raise ValueError("Invalid car value.")
         
         if not all(isinstance(value, bool) for value in [self.lights, self.signals, self.engine]):
             raise ValueError("Invalid lights, signals or engine value.")
@@ -208,8 +205,12 @@ class CarFuncs:
         if value in ['Forward', 'Reverse', 'Neutral']:
 
             if self.engine:
-                self.drive_mod = value
-                return f"Drive mode set to: {self.drive_mod}"
+                
+                if value != self.drive_mod:
+                    self.drive_mod = value
+                    return f"Drive mode set to: {self.drive_mod}"
+                
+                return f"Drive_mod is already set on {value}"
             
             return "Cannot change drive mode. The engine is off."
         
