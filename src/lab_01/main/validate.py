@@ -1,6 +1,5 @@
 from datetime import date
 
-
 def validate_car_brand(variable: str) -> bool:
 
     return isinstance(variable, str) and len(variable.split()) != 0

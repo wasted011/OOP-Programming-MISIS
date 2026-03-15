@@ -11,8 +11,7 @@ from src.lab_01.main.validate import (
     validate_distance,
 )
 
-# Создание класса Car с атрибутами: марка, модель, пробег, год выпуска.
-
+# Инициализация дата-класса Car с атрибутами: марка, модель, пробег, год выпуска.
 
 @dataclass
 class Car:
@@ -40,6 +39,7 @@ class Car:
         if not validate_year_of_manufacture(self._year_of_manufacture):
             raise ValueError("Invalid year of manufacture value.")
 
+    # Инициализация геттеров для защищенных атрибутов дата-класса Car.
     @property
     def brand(self):
         return self._brand
@@ -55,6 +55,8 @@ class Car:
     @property
     def year_of_manufacture(self):
         return self._year_of_manufacture
+
+    # Инициализация сеттеров для защищенных атрибутов дата-класса Car (Сеттеры не могут существовать без геттеров).
 
     @brand.setter
     def brand(self, value: str):
@@ -108,8 +110,7 @@ class Car:
             and self._year_of_manufacture == value._year_of_manufacture
         )
 
-# Создание класса CarFuncs, который будет содержать атрибуты, связанные с функциями автомобиля (например, состояние двигателя, света, сигналов и т.д.) и методы для управления этими функциями.
-
+# Инициализация класса CarFuncs, который содержит атрибуты, связанные с функциями автомобиля и методы для управления этими функциями.
 
 @dataclass
 class CarFuncs:
@@ -122,11 +123,13 @@ class CarFuncs:
     signals: bool
     drive_mod: str
 
-    # Валидация атрибутов дата-класса CarFuncs при его создании и при изменении атрибутов через сеттеры.
+    # Инициализация геттера класса CarFuncs.
 
     @property
     def car(self):
         return self._car
+
+    # Инициализация сеттера класса CarFuncs.
 
     @car.setter
     def car(self, value: Car):
@@ -136,7 +139,7 @@ class CarFuncs:
 
         self._car = value
 
-    # Пост-валидация атрибутов дата-класса CarFuncs при его создании.
+    # Валидация атрибутов дата-класса CarFuncs при его создании.
 
     def __post_init__(self):
 
@@ -170,12 +173,14 @@ class CarFuncs:
             and self.drive_mod == value.drive_mod
         )
 
-    # Реализация методов для управления функциями автомобиля (например, включение/выключение двигателя, света, сигналов и т.д.).
+    # Реализация метода включение двигателя автомобиля (Выведен отдельно потому что self.engine - атрибут состояние, от него зависят последующие методы).
 
     def toggle_main_car_func_engine(self):
 
         self.engine = not (self.engine)
         return f"Engine turned {'On' if self.engine else 'Off'}."
+
+    # Реализация метода включения/выключения фонарей/сигналов.
 
     def toggle_car_funcs(self, value: str):
 
@@ -197,6 +202,8 @@ class CarFuncs:
 
         return f"Invalid function: {value}. Valid options are: lights, signals."
 
+    # Реализация метода переключения коробки передач.
+
     def toggle_drive_mod(self, value: str):
 
         if value in ["Forward", "Reverse", "Neutral"]:
@@ -213,7 +220,7 @@ class CarFuncs:
 
         return f"Invalid drive mode: {value}. Valid options are: Forward, Reverse, Neutral."
 
-    # Реализация метода drive, который принимает количество километров, на которое нужно проехать, и увеличивает пробег автомобиля на это количество.
+    # Реализация метода drive, который принимает количество километров, на которое нужно проехать, и увеличивает пробег автомобиля.
 
     def drive(self, distance: int):
 

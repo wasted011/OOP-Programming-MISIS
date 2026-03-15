@@ -4,7 +4,7 @@ from validate import validate_mileage
 from datetime import date
 from dataclasses import dataclass
 
-# --// Инициализация(создание) объекта класса Car.\\--
+# Инициализация(создание) объекта класса Car.
 
 demo_object_01 = Car(
     _brand="Toyota",
@@ -13,11 +13,11 @@ demo_object_01 = Car(
     _year_of_manufacture=date(2015, 1, 1),
 )
 
-# --// Вывод инициализированного объекта demo_object через print().\\--
+# Вывод инициализированного объекта demo_object через print().
 
 print(demo_object_01)
 
-# --// Сравнение двух объектов (demo_object_02, demo_object_03) (Тандер-метод: __eq__). \\--
+# Сравнение двух объектов (demo_object_02, demo_object_03) (Dunder-метод: __eq__).
 
 demo_object_02 = Car(
     _brand="Honda",
@@ -32,7 +32,7 @@ demo_object_03 = Car(
     _year_of_manufacture=date(2025, 1, 1),
 )
 
-# --// test_demo_object_02 - Для того, чтобы показать что если объекты имеют идентичные атрибуты, они равны.\\--
+# test_demo_object_02 - Для того, чтобы показать что если объекты имеют идентичные атрибуты, они равны.
 
 test_demo_object_02 = Car(
     _brand="Honda",
@@ -41,27 +41,20 @@ test_demo_object_02 = Car(
     _year_of_manufacture=date(2000, 1, 1),
 )
 
-# --\\----------------------------------------------------------------------------------------------------------//--
-
-
 def demo_equalization(variable_01: Car, variable_02: Car) -> bool:
 
     return variable_01 == variable_02
 
 
-# --// Случай неравнества объектов.\\--
+# Случай неравенства объектов.
 
 print(demo_equalization(variable_01=demo_object_02, variable_02=demo_object_03))
 
-# --\\---------------------------------------------------------------------------//--
-
-# --// Обратное неравенству объектов.\\--
+# Случай равенства объектов.
 
 print(demo_equalization(variable_01=demo_object_02, variable_02=test_demo_object_02))
 
-# --\\--------------------------------------------------------------------------------//--
-
-# --// Примеры некорректного создания.\\--
+# Примеры некорректного создания.
 
 demo_object_04 = ("", "Camry", 50000, date(2015, 1, 1))
 demo_object_05 = ("Toyota", "", 50000, date(2015, 1, 1))
@@ -86,9 +79,7 @@ def demo_incorrect_initialization(variable: tuple) -> None | str:
 print(demo_incorrect_initialization(variable=demo_object_04))
 print(demo_incorrect_initialization(variable=demo_object_05))
 
-# --\\------------------------------------------------------------------------------------------------------------------//--
-
-# --// Пример изменения свойства объекта через setter.\\--
+# Пример изменения свойства объекта через setter.
 
 demo_object_06 = Car(
     _brand="Toyota",
@@ -114,9 +105,7 @@ def demo_change_setter(variable: Car, new_mileage: int) -> str:
 print(demo_change_setter(variable=demo_object_06, new_mileage=50000))
 print(demo_change_setter(variable=demo_object_06, new_mileage=-50000))
 
-# --\\--------------------------------------------------------//--
-
-# --// Пример доступа к атрибуту класса через класс и экземпляр.\\--
+# Пример доступа к атрибуту класса через класс и экземпляр.
 
 # Доступ через класс:
 
@@ -142,9 +131,7 @@ demo_examplar = Car(
 
 print(demo_examplar.mileage)
 
-# --\\--------------------------------------------------------------------------------------------------------//--
-
-# --// Демонастрация валидации. \\--
+# Демонастрация валидации.
 
 scenario_01 = ("Porshe", "", 30000, date(2022, 1, 1))
 scenario_02 = ("", "GT3-RS", 45000, date(2023, 1, 1))
@@ -173,9 +160,7 @@ print(demo_validation(variable=scenario_02))
 print(demo_validation(variable=scenario_03))
 print(demo_validation(variable=success_scenario))
 
-# --\\-----------------------------//--
-
-# --// Демонстрация лог. состояний.\\--
+# Демонстрация лог. состояний.
 
 scenario_04 = Car(
     _brand="Porshe",
@@ -227,5 +212,3 @@ def demo_log_properties(variable: CarFuncs, func: str):
 print(demo_log_properties(variable=final_scenario_04, func="lights"))
 print(demo_log_properties(variable=final_scenraio_05, func="signals"))
 print(demo_log_properties(variable=final_scenraio_06, func="drive_mod"))
-
-# --\\----------------------------------------------------------------//--
