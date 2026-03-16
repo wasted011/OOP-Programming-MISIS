@@ -19,18 +19,13 @@ def validate_year_of_manufacture(variable: date) -> bool:
 
     return isinstance(variable, date) and variable <= date.today()
 
-
+def validate_lights_signals(variable_01: bool, variable_02: bool):
+    
+    return all(isinstance(element, bool) for element in [variable_01, variable_02])
+        
 def validate_car_funcs_drive_mode(drive_mod: str) -> bool:
 
     return isinstance(drive_mod, str) and len(drive_mod.split()) != 0
-
-
-def validate_car_funcs_car(object) -> bool:
-
-    from src.lab_01.main.model import Car
-
-    return isinstance(object, Car)
-
 
 def validate_distance(distance: int) -> bool:
 

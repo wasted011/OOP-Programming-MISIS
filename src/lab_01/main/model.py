@@ -1,13 +1,12 @@
 from dataclasses import dataclass
 from datetime import date
 
-from src.lab_01.main.validate import (
+from validate import (
     validate_car_brand,
     validate_car_model,
     validate_mileage,
     validate_year_of_manufacture,
     validate_car_funcs_drive_mode,
-    validate_car_funcs_car,
     validate_distance,
 )
 
@@ -134,7 +133,7 @@ class CarFuncs:
     @car.setter
     def car(self, value: Car):
 
-        if not validate_car_funcs_car(value):
+        if not isinstance(value, Car):
             raise ValueError("Invalid car value.")
 
         self._car = value
@@ -233,3 +232,5 @@ class CarFuncs:
             return f"Car driven for {distance} km. Total mileage is now {self._car.mileage} km."
 
         return "Cannot drive. The engine is off."
+    
+print(Car('toyota', '', ))
