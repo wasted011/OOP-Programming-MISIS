@@ -5,7 +5,7 @@ from datetime import date
 from dataclasses import dataclass
 
 # Инициализация(создание) объекта класса Car.
-"""
+
 demo_object_01 = Car(
     _brand="Toyota",
     _model="Camry",
@@ -55,8 +55,7 @@ print(demo_equalization(variable_01=demo_object_02, variable_02=demo_object_03))
 
 print("Случай равенства объектов:")
 print(demo_equalization(variable_01=demo_object_02, variable_02=test_demo_object_02))
-"""
-"""
+
 # Примеры некорректного создания.
 
 demo_object_04 = ("", "Camry", 50000, date(2015, 1, 1))
@@ -84,8 +83,7 @@ print(demo_incorrect_initialization(variable=demo_object_04))
 print(f"Второй объект: {demo_object_05}")
 print("Для объекта demo_object_05 аналогично demo_object_04 поднимет ValueError:")
 print(demo_incorrect_initialization(variable=demo_object_05))
-"""
-"""
+
 # Пример изменения свойства объекта через setter.
 
 demo_object_06 = Car(
@@ -114,7 +112,6 @@ print(demo_change_setter(variable=demo_object_06, new_mileage=50000))
 print("Поднимет ValueError: Новое значение не прошло валидацию в @mileage.setter")
 print(demo_change_setter(variable=demo_object_06, new_mileage=-50000))
 
-"""
 
 
 # Пример доступа к атрибуту класса через класс и экземпляр.
@@ -123,7 +120,7 @@ print(demo_change_setter(variable=demo_object_06, new_mileage=-50000))
 
 # (т. к. В аттрибутах класса Car нет какого-то определенного (все атрибуты задаются пользователем), создам класс CarWithOnlyDoors с уже определенным атрибутом doors чтобы показать доступ через класс)
 
-"""
+
 @dataclass
 class CarWithOnlyDoors:
 
@@ -141,10 +138,9 @@ demo_examplar = Car(
 
 print("Доступ через экземпляр:")
 print(demo_examplar.mileage)
-"""
 
 
-"""
+
 # Демонастрация валидации.
 
 scenario_01 = ("Porshe", "", 30000, date(2022, 1, 1))
@@ -177,7 +173,6 @@ print("Поднимет ValueError: Третий атрибут не проше�
 print(demo_validation(variable=scenario_03))
 print("Вернет: All elements succesfully passed the validation proccess")
 print(demo_validation(variable=success_scenario))
-"""
 
 # Демонстрация лог. состояний.
 
@@ -240,7 +235,7 @@ def demo_log_properties(variable: CarFuncs, func: str):
 print("Сценарий 1: Выведет 'Succesfully changed 'lights'.")
 print(demo_log_properties(variable=final_scenario_04, func="lights"))
 
-print("Сценарий 2: Поднимет ValueError. Выведет 'An error has occured: Engine is off")
+print("Сценарий 2: Поднимет ValueError. Выведет 'An error has occured': Engine is off")
 print(demo_log_properties(variable=final_scenraio_05, func="signals"))
 
 print("Сценарий 3: Попросит выбрать передачу, после выбора выведет 'Succesfully changed drive_mod'.")
