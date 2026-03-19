@@ -1,82 +1,107 @@
 <h1 align = 'center' >model.py</h1>
 
----
 > В model.py реализованно 2 дата-класса (Car и CarFuncs):
 > 
 > Car: Инициализирует всю первичную информацию о автомобиле (Прозводитель, модель и т. д.).
 > 
 > CarFuncs: Основные функции автомобиля (Вкл/Выкл фар/сигналов и т. д.).
->
-> Ниже представлены скриншоты частей кода, действия описаны комментариями в коде/в заголовках перед скриншотами.
----
 
 ## Дата-класс Car:
 
 * ### Инициализация дата-класса Car и его атрибутов:
-![car_data_class_initialization](/misc/images/lab_01/model/Class_Car/car_data_class_initialization.png)
+  
+  - `_brand` - Бренд автомобиля.
+    
+  - `_model` - Модель автомобиля.
+    
+  - `_mileage` - Пробег автомобиля.
+    
+  - `year_of_manufacture` - Год выпуска автомобиля.
+
+* ### Создание геттеров и сеттеров для защищенных атрибутов (_variable) дата-класса Car:
+  
+  - `@property` (Перед каждым сеттером ниже, возвращает защищенный атрибут (Геттер)):
+  - В каждом сеттер значение проходит валидацию `validate_car_*****` перед присваиванием:
+    
+     - `brand.setter` - Сеттер защищенного атрибута `_brand`.
+       
+     - `model.setter` - Сеттер защищенного атрибута `_model`.
+       
+     - `mileage.setter` - Сеттер защищенного атрибута `_mileage`.
+       
+     - `year_of_manufacture.setter` - Сеттер защищенного атрибута `_year_of_manufacture`.
+      
 * ### Валидация атрибутов дата-класса Car:
-![car_validation](/misc/images/lab_01/model/Class_Car/car_validation.png)
-* ### Создание геттеров для защищенных атрибутов (_variable) дата-класса Car:
-![car_getters](/misc/images/lab_01/model/Class_Car/car_getters.png)
-* ### Создание сеттеров для защищенных атрибутов дата-класса Car:
-![car_setters](/misc/images/lab_01/model/Class_Car/car_setters.png)
+  
+  - `validate_car_brand` - Валидация бренда автомобиля (Бренд - str, Бренд != пустой строке).
+    
+  - `validate_car_model` - Валидация модели автомобиля (Модель - str, Модель != пустой строке).
+    
+  - `validate_car_mileage` - Валидация пробега автомобиля (Пробег - int, Пробег >= 0).
+    
+  - `validate_year_of_manufacture` - Валидация даты выпуска автомобиля (Дата - type: date, Дата выпуска >= Дата сегодня).
+
 * ### Реализация Dunder-методов дата-класса Car:
-![car_dunder_methods](/misc/images/lab_01/model/Class_Car/car_dunder_methods.png)
+
+  - `__str__` - Красивый вывод атрибутов объекта дата-класса Car (`_brand`, `_model` и т.д.)
+  - `__repr__` - Практически идентичен с `__str__`, разница в формате вывода (Бренд: `self._brand` - brand= `self._brand`).
+  - `__eq__` - Метод сравнения двух объектов (Объекты равны при равенстве всех атрибутов (self.brand == other.brand и т.д.)
 
 ## Дата-класс CarFuncs:
 
 * ### Инициализация дата-класса CarFuncs и его атрибутов:
-![carfuncs_data_class_initialization](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_data_class_initialization.png)
-* ### Создание геттера для защищенного атрибута car дата-класса CarFuncs:
-![carfuncs_getter](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_getter.png)
-* ### Создание сеттера для защищенного атрибута car дата-класса Carfuncs:
-![carfuncs_setter](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_setter.png)
+  
+  - `_car` - Объект дата-класса Car.
+    
+  - `engine` - Состояние двигателя автомобиля.
+    
+  - `lights` - Состояние фар автомобиля.
+    
+  - `signals` - Состояние сигналов автомобиля.
+    
+  - `drive_mod` - Передача автомобиля.
+    
+* ### Создание геттера и сеттера для защищенного атрибута.
+
+  - Значение сеттера `value` ниже проходит `validate_carfuncs_car` перед присваиванием.
+    
+  - `@property` - Геттер защищенного атрибута `_car` дата-класса CarFuncs.
+
+  - `@car.setter` - Сеттер защищенного атрибута `_car` дата-класса CarFuncs.
+    
 * ### Валидация атрибутов дата-класса CarFuncs:
-![carfuncs_validation](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_validation.png)
+  
+  - `validate_carfuncs_car` - Ф-ия валидации защищенного атрибута `_car` (Атрибут принадлежит дата-классу Car).
+    
+  - `validate_carfuncs_enigne` - Ф-ия валидации атрибута `enigne` (Атрибут - bool).
+    
+  - `validate_carfuncs_lights` - Ф-ия валидации атрибута `lights` (Атрибут - bool).
+    
+  - `validate_carfuncs_signals` - Ф-ия валидации атрибута `signals` (Атрибут - bool).
+    
+  - `validate_carfuncs_drive_mod` - Ф-ия валидации атрибута `drive_mod` (Атрибут - bool).
+  
 * ### Реализация Dunder-методов дата-класса CarFuncs:
-![carfuncs_dunder_methods](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_dunder_methods.png)
-* ### Метода запуска мотора автомобиля объекта дата-класса CarFuncs:
-![arfuncs_toggle_engine_method](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_toggle_engine_method.png)
-* ### Метод Вкл/Выкл Фар/Сигналов объекта дата-класса CarFuncs:
-![carfuncs_toggle_lights_signals](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_toggle_lights_signals.png)
-* ### Метод переключения коробки передач объекта дата-класса CarFuncs:
-![carfuncs_toggle_drive_mod_method](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_toggle_drive_mod_method.png)
-* ### Метод имитации движения (+Пробег) автомобиля объекта дата-класса CarFuncs:
-![carfuncs_drive_method](/misc/images/lab_01/model/Class_CarFuncs/carfuncs_drive_method.png)
+  
+  - `__str__` - Красивый вывод атрибутов объекта дата-класса Car (`_car`, `enigne` и т.д.)
+    
+  - `__repr__` - Практически идентичен с `__str__`, разница в формате вывода (Состояние двигателя: `self.engine` - engine = `self.engine`).
+    
+  - `__eq__` - Метод сравнения двух объектов (Объекты равны при равенстве всех атрибутов (self.engine == other.engine и т.д.)
 
-<h1 align = 'center'>validate.py</h1>
-
----
-> Ниже представлены функции валидации конкретных переменных/атрибутов
-> используемых в model.py
----
-
-## Дата-класс Car:
-* ### Ф-ия валидации защищенного атрибута brand:
-![validate_car_brand](/misc/images/lab_01/validate/validate_car_brand.png)
-* ### Ф-ия валидации защищенного атрибута model:
-![validate_car_model](/misc/images/lab_01/validate/validate_car_model.png) 
-* ### Ф-ия валидации защищенного атрибута mileage:
-![validate_mileage](/misc/images/lab_01/validate/validate_mileage.png)
-* ### Ф-ия валидации защищенного атрибута year_of_manufacture:
-![validate_year_of_manufacture](/misc/images/lab_01/validate/validate_year_of_manufacture.png)
-
-## Дата-класс CarFuncs:
-* ### Валидация защищенного атрибута car дата-класса CarFuncs (Прописана в __post_init__):
-![validate_type_car](/misc/images/lab_01/validate/validate_type_car.png)
-* ### Валидация атрибутов lights/signals дата-класса СarFuncs:
-![validate_lights_signals](/misc/images/lab_01/validate/validate_lights_signals.png)
-* ### Ф-ия валидации передач атритуба drive_mod:
-![validate_drive_mod](/misc/images/lab_01/validate/validate_drive_mod.png)
-* ### Ф-ия валидации переменной distance метода drive дата-класса CarFuncs:
-![validate_distance](/misc/images/lab_01/validate/validate_distance.png)
+* ### Бизнес-методы дата-класса CarFuncs:
+  
+  - `toggle_main_car_funcs_enigne` - Изменение состояния двигателя автомобиля (Вкл/Выкл - T/F).
+    
+  - `toggle_car_funcs` - Включение/Выключение Сигналов/Фар автомобиля.
+    
+  - `toggle_drive_mod` - Переключение коробки передач автомобиля (Forward/Reverse/Neutral).
 
 <h1 align = 'center'>demo.py</h1>
 
----
 > Ниже представлен демонстрационный файл demo.py
+> 
 > Демонстрация разбита на секции C(3), B(4), A(5).
----
 
 ## Оценка C(3):
 
@@ -84,19 +109,48 @@
 ![demo_initialization](/misc/images/lab_01/demo/C/demo_initialization.png)
 * ### Демонстрация вывода инициализированного объекта demo_object_01 в терминал:
 ![demo_print](/misc/images/lab_01/demo/C/demo_print.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_print_terminal](/misc/images/lab_01/demo/C/demo_print_terminal.png)
 * ### Демонстрация равенства/неравенства объектов дата-класса Car:
 ![demo_equalization](/misc/images/lab_01/demo/C/demo_equalization.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_equalization_terminal](/misc/images/lab_01/demo/C/demo_equalization_terminal.png)
 * ### Демонстрация некорректного создания объектов дата-класса Car:
-![demo_inocrrect_creation](/misc/images/lab_01/demo/C/demo_inocrrect_creation.png)
+![demo_incorrect_creation](/misc/images/lab_01/demo/C/demo_inocrrect_creation.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_incorrect_creation_terminal](/misc/images/lab_01/demo/C/demo_incorrect_creation_terminal.png)
 
 ## Оценка B(4):
 * ### Демонстрация доступа к объекта дата-класса Car через класс/экземпляр:
 ![demo_access_to_class](/misc/images/lab_01/demo/B/demo_access_to_class.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_access_to_class_terminal](/misc/images/lab_01/demo/B/demo_access_to_class_terminal.png)
 * ### Демонстрация изменения состояния атрибута объекта дата-класса Car:
-![demo_access_to_class](/misc/images/lab_01/demo/B/demo_access_to_class.png)
+![demo_property_change_by_setter](/misc/images/lab_01/demo/B/demo_property_change_by_setter.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_property_change_by_setter_terminal](/misc/images/lab_01/demo/B/demo_property_change_by_setter_terminal.png)
+
 
 ## Оценка A(5):
 * ### Демонстрация логических состояних объектов дата-класса Car:
 ![demo_conditions](/misc/images/lab_01/demo/A/demo_conditions.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_conditions_terminal](/misc/images/lab_01/demo/A/demo_conditions_terminal.png)
 * ### Демонстрация валидации объектов дата-класса Car:
 ![demo_validation](/misc/images/lab_01/demo/A/demo_validation.png)
+
+<h3 align = 'center' > ↓ </h3>
+
+![demo_validation_terminal](/misc/images/lab_01/demo/A/demo_validation_terminal.png)
