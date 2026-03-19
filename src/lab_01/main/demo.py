@@ -5,7 +5,7 @@ from datetime import date
 from dataclasses import dataclass
 
 # Инициализация(создание) объекта класса Car.
-
+"""
 demo_object_01 = Car(
     _brand="Toyota",
     _model="Camry",
@@ -13,9 +13,10 @@ demo_object_01 = Car(
     _year_of_manufacture=date(2015, 1, 1),
 )
 
-# Вывод инициализированного объекта demo_object через print().
+print("Вывод инициализированного объекта demo_object через print() (__repr__, __str__): ")
+print(demo_object_01.__str__())
+print(demo_object_01.__repr__())
 
-print(demo_object_01)
 
 # Сравнение двух объектов (demo_object_02, demo_object_03) (Dunder-метод: __eq__).
 
@@ -46,14 +47,16 @@ def demo_equalization(variable_01: Car, variable_02: Car) -> bool:
     return variable_01 == variable_02
 
 
-# Случай неравенства объектов.
+print(f"Первый объект: {demo_object_02}")
+print(f"Второй объект: {demo_object_03}")
 
+print("Случай неравенства объектов:")
 print(demo_equalization(variable_01=demo_object_02, variable_02=demo_object_03))
 
-# Случай равенства объектов.
-
+print("Случай равенства объектов:")
 print(demo_equalization(variable_01=demo_object_02, variable_02=test_demo_object_02))
-
+"""
+"""
 # Примеры некорректного создания.
 
 demo_object_04 = ("", "Camry", 50000, date(2015, 1, 1))
@@ -74,11 +77,15 @@ def demo_incorrect_initialization(variable: tuple) -> None | str:
     except ValueError as error:
 
         return f"Inocorrect initialization, Error: {error}"
-
-
+print(f"Первый объект: {demo_object_04}")
+print("Для объекта demo_object_04 поднимет ValueError:")
 print(demo_incorrect_initialization(variable=demo_object_04))
-print(demo_incorrect_initialization(variable=demo_object_05))
 
+print(f"Второй объект: {demo_object_05}")
+print("Для объекта demo_object_05 аналогично demo_object_04 поднимет ValueError:")
+print(demo_incorrect_initialization(variable=demo_object_05))
+"""
+"""
 # Пример изменения свойства объекта через setter.
 
 demo_object_06 = Car(
@@ -92,7 +99,7 @@ demo_object_06 = Car(
 def demo_change_setter(variable: Car, new_mileage: int) -> str:
 
     if not validate_mileage(new_mileage):
-        return ValueError("Incorrect new_mileage value")
+        raise ValueError("Incorrect new_mileage value")
 
     try:
         variable.mileage = new_mileage
@@ -101,9 +108,14 @@ def demo_change_setter(variable: Car, new_mileage: int) -> str:
     except ValueError:
         return "Not succesfully"
 
-
+print("Присвоит значение 50000:")
 print(demo_change_setter(variable=demo_object_06, new_mileage=50000))
+
+print("Поднимет ValueError: Новое значение не прошло валидацию в @mileage.setter")
 print(demo_change_setter(variable=demo_object_06, new_mileage=-50000))
+
+"""
+
 
 # Пример доступа к атрибуту класса через класс и экземпляр.
 
@@ -111,16 +123,14 @@ print(demo_change_setter(variable=demo_object_06, new_mileage=-50000))
 
 # (т. к. В аттрибутах класса Car нет какого-то определенного (все атрибуты задаются пользователем), создам класс CarWithOnlyDoors с уже определенным атрибутом doors чтобы показать доступ через класс)
 
-
+"""
 @dataclass
 class CarWithOnlyDoors:
 
     doors: int = 4
 
-
+print("Доступ через класс:")
 print(CarWithOnlyDoors.doors)
-
-# Доступ через экземпляр:
 
 demo_examplar = Car(
     _brand="Ford",
@@ -129,8 +139,12 @@ demo_examplar = Car(
     _year_of_manufacture=date(2018, 1, 1),
 )
 
+print("Доступ через экземпляр:")
 print(demo_examplar.mileage)
+"""
 
+
+"""
 # Демонастрация валидации.
 
 scenario_01 = ("Porshe", "", 30000, date(2022, 1, 1))
@@ -154,11 +168,16 @@ def demo_validation(variable: tuple) -> None | str:
     except ValueError as error:
         return f"An error occured: {error}"
 
-
+print("Поднимет ValueError: Второй атрибут не прошел валидацию в @model.setter")
 print(demo_validation(variable=scenario_01))
+print("Поднимет ValueError: Первый атрибут не прошел валидацию в @brand.setter")
 print(demo_validation(variable=scenario_02))
+
+print("Поднимет ValueError: Третий атрибут не прошел валидацию в @mileage.setter")
 print(demo_validation(variable=scenario_03))
+print("Вернет: All elements succesfully passed the validation proccess")
 print(demo_validation(variable=success_scenario))
+"""
 
 # Демонстрация лог. состояний.
 
@@ -170,12 +189,15 @@ scenario_04 = Car(
 )
 scenario_05 = Car(
     _brand="Pagani Zonda",
-    _model="r",
+    _model="R",
     _mileage=5000,
     _year_of_manufacture=date(2010, 1, 1),
 )
 scenario_06 = Car(
-    _brand="Audi", _model="R8", _mileage=25000, _year_of_manufacture=date(2015, 1, 1)
+    _brand="Audi", 
+    _model="R8", 
+    _mileage=25000, 
+    _year_of_manufacture=date(2015, 1, 1)
 )
 
 final_scenario_04 = CarFuncs(scenario_04, True, False, False, "Neutral")
@@ -193,22 +215,33 @@ def demo_log_properties(variable: CarFuncs, func: str):
 
     try:
 
-        if func in ["lights", "signals"]:
-            return variable.toggle_car_funcs(func)
+        if variable.engine:
 
-        elif func == "drive_mod":
+            if func in ["lights", "signals"]:
+                variable.toggle_car_funcs(func)
 
-            which_func = input("Choose an option: Forward, Backward, Neutral: ")
+                return f"Succesfully changed {func}."
 
-            if which_func in ["Forward", "Backward", "Neutral"]:
-                return variable.toggle_drive_mod(which_func)
+            elif func == "drive_mod":
 
-            return "Incorrect option"
+                which_func = input("Choose an option: Forward, Backward, Neutral: ")
+
+                if which_func in ["Forward", "Backward", "Neutral"]:
+                    variable.toggle_drive_mod(which_func)
+                    return f"Succesfully changed {func}."
+
+                return "Incorrect option"
+        else:
+            raise ValueError("Engine is Off")
 
     except ValueError as error:
         return f"An error has occured: {error}"
 
-
+print("Сценарий 1: Выведет 'Succesfully changed 'lights'.")
 print(demo_log_properties(variable=final_scenario_04, func="lights"))
+
+print("Сценарий 2: Поднимет ValueError. Выведет 'An error has occured: Engine is off")
 print(demo_log_properties(variable=final_scenraio_05, func="signals"))
+
+print("Сценарий 3: Попросит выбрать передачу, после выбора выведет 'Succesfully changed drive_mod'.")
 print(demo_log_properties(variable=final_scenraio_06, func="drive_mod"))

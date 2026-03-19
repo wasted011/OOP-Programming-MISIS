@@ -6,6 +6,7 @@ from validate import (
     validate_car_model,
     validate_mileage,
     validate_year_of_manufacture,
+    validate_lights_signals,
     validate_car_funcs_drive_mode,
     validate_distance,
 )
@@ -142,10 +143,7 @@ class CarFuncs:
 
     def __post_init__(self):
 
-        if not all(
-            isinstance(value, bool)
-            for value in [self.lights, self.signals, self.engine]
-        ):
+        if not validate_lights_signals(self.lights, self.signals):
             raise ValueError("Invalid lights, signals or engine value.")
 
         if not validate_car_funcs_drive_mode(self.drive_mod):
@@ -232,5 +230,3 @@ class CarFuncs:
             return f"Car driven for {distance} km. Total mileage is now {self._car.mileage} km."
 
         return "Cannot drive. The engine is off."
-    
-print(Car('toyota', '', ))
