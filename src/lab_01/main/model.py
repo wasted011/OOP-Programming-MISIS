@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 
-from validate import (
+from .validate import (
     validate_car_brand,
     validate_car_model,
     validate_mileage,
@@ -136,13 +136,14 @@ class CarFuncs:
 
         if not isinstance(value, Car):
             raise ValueError("Invalid car value.")
-
+        
         self._car = value
 
     # Валидация атрибутов дата-класса CarFuncs при его создании.
 
     def __post_init__(self):
 
+        
         if not validate_lights_signals(self.lights, self.signals):
             raise ValueError("Invalid lights, signals or engine value.")
 
