@@ -30,3 +30,5 @@ print(test_garage.get_all())
 # Метод find_by_*** (find_by_id()):
 
 print(test_garage.find_by_id(0))
+
+#smth
