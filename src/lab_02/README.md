@@ -70,6 +70,34 @@
 >
 > Сценарии (`scenario_*_*****`) - Демонастрация совместно работающих методов в около-реальной работе.
 
-## Ф-ия `basic_demonstraion`:
+## `basic_demonstraion`:
 
-*
+![basic_demonstration_code](/misc/images/lab_02/basic_demonstraion/basic_demonstration_code.png)
+
+<h1 align = 'center' > ↓ </h1>
+
+![basic_demonstration_terminal](/misc/images/lab_02/basic_demonstraion/basic_demonstration_terminal.png)
+
+## `scenario_1_audit_and_sorting`:
+
+![scenario_01_all_in_all](/misc/images/lab_02/scenarios/scenario_01/scenario_01_all_in_all.png)
+
+<h1 align = 'center' > ↓ </h1>
+
+![scenario_01_terminal](/misc/images/lab_02/scenarios/scenario_01/scenario_01_terminal.png)
+
+## `scenario_2_storage_management`:
+
+![scenario_02_code](/misc/images/lab_02/scenarios/scenario_02/scenario_02_code.png)
+
+<h1 align = 'center' > ↓ </h1>
+
+![scenario_02_terminal](/misc/images/lab_02/scenarios/scenario_02/scenario_02_terminal.png)
+
+## `scenario_3_capacity_control`:
+
+![scenario_03_code](/misc/images/lab_02/scenarios/scenario_03/scenario_03_code.png)
+
+<h1 align = 'center' > ↓ </h1>
+
+![scenario_03_terminal](/misc/images/lab_02/scenarios/scenario_03/scenario_03_terminal.png)
