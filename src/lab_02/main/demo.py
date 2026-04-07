@@ -87,12 +87,10 @@ def scenario_3_capacity_control():
     secure_garage = Garage(_max_cars=2)
     
     # Инициализация объектов класса Car в коллекцию:
-
     secure_garage.add(Car("Volvo", "XC90", 10000, date(2021, 1, 1)))
     secure_garage.add(Car("Mercedes", "S-Class", 30000, date(2020, 1, 1)))
     
     # Демонстрация ограничения коллекции:
-
     try:
         secure_garage.add(Car("Ford", "Focus", 80000, date(2015, 1, 1)))
     except IndexError:
@@ -102,7 +100,4 @@ def scenario_3_capacity_control():
 
 # Точка входа в программу
 if __name__ == "__main__":
-    basic_demonstration()
-    scenario_1_audit_and_sorting()
-    scenario_2_storage_management()
     scenario_3_capacity_control()
