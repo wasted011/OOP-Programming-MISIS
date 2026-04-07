@@ -1,91 +1,104 @@
 from src.lab_01.main.model import Car
+from src.lab_01.main.validate import (
+    validate_mileage
+)
 from src.lab_02.main.validate import (
-    validate_car_id
+    validate_class_car,
+    validate_index,
+    validate_reverse
 )
 
 from dataclasses import dataclass, field
 from datetime import date
+
 @dataclass
 class Garage:
 
-    _cars: dict[int, dict] = field(default_factory=dict)
-    _last_id: int = 0
+    _garage: list = field(default_factory=list)
+    _max_cars: int = 10
 
     @property
-    def cars(self): return self._cars
+    def garage(self): return self._garage[:]
 
     @property
-    def last_id(self): return self._last_id
+    def max_cars(self): return self._max_cars
 
-    def add_car(self, new_object: Car):
+    def __len__(self): return len(self._garage)
 
-        if not isinstance(new_object, Car):
-            raise TypeError
+    def __iter__(self): return iter(self._garage)
+
+    def __getitem__(self, index: int): 
+
+        validate_index(index)
+        return self._garage[index]
+    
+    def add(self, car: Car) -> bool:
+
+        validate_class_car(car)
         
-        current_id = self._last_id
-        self._last_id += 1
-        
-        new_car = {
-            "Brand": new_object.brand,
-            "Model": new_object.model,
-            "Mileage": new_object.mileage,
-            "Year_of_manufacture": new_object.year_of_manufacture
-        }
-        if new_car not in self._cars.values():
-
-            self._cars.update({current_id:new_car})
-            return "Succesfully added"
-        
-        return "Car is already in garage"
-        
-    def find_by_id(self, car_id: int):
-
-        if validate_car_id(car_id):
-
-            if car_id in self._cars:
-
-                return self._cars[car_id]
+        if car not in self._garage:
+            if len(self._garage) < self._max_cars:
+                self._garage.append(car)
+                return True
             
-            return "No car with that id"
+            raise IndexError
+        return False
+    
+    def remove(self, car: Car):
 
-    def delete_car(self, car_id: int):
+        validate_class_car(car)
 
-        if validate_car_id(car_id):
-
-            if car_id in self._cars:
-
-                del self._cars[car_id]
-                return "Succesfully deleted"
-            
-            return "No car with that id"
+        if car in self._garage:
+            self._garage.remove(car)
+            return True
+        
+        return False
     
     def get_all(self):
-        print("-----")
-        for car_id in self._cars:
-            for key in self._cars[car_id]:
-                if key != "Year_of_manufacture":
-                    print(f"{key}: {self._cars[car_id][key]}; ", end = '')
-                print(f"{key}: {self._cars[car_id][key]}.", end = '')
-            print('')
-        return "-----"
+        return self._garage[:]
     
-    def update_car_info(self, car_id: int, key: str, updated_value: any):
+    def find_by_mileage(self, mileage_input: int):
+        
+        validate_mileage(mileage_input)
 
-        if validate_car_id(car_id):
+        if self._garage:
+            for element in self._garage:
+                if element._mileage == mileage_input:
+                    return element
+                
+        return None
+    def remove_at(self, index: int):
         
-            if not isinstance(key, str):
-                raise TypeError
+        validate_index(index)
+        
+        if index < len(self._garage):
             
-            if not updated_value or updated_value == '':
-                raise ValueError
+            self._garage.pop(index)
+            return True
+        
+        return False
+    
+    def sort_by_mileage(self, reverse: bool):
 
-            if car_id not in self._cars:
-                raise ValueError
-            
-            if key not in self._cars[car_id]:
-                raise ValueError
+        validate_reverse(reverse)
+        self._garage.sort(key=lambda x: x._mileage, reverse=reverse)
+        return self._garage
+    
+    def sort_by_year_of_manufacture(self, reverse: bool):
+
+        validate_reverse(reverse)
+        self._garage.sort(key=lambda x: x._year_of_manufacture, reverse=reverse)
+        return self._garage
+    
+    def get_most_used(self):
         
-            self._cars[car_id][key] = updated_value
-            return "Succesfully updated"
+        if not self._garage: return []
+        average_mileage = sum(element._mileage for element in self._garage) / len(self._garage)
+        return [car for car in self._garage if car._mileage >= average_mileage]
+    
+    def get_oldest(self):
+
         
-#smth
+        if not self._garage: return []
+        average_year_of_manufacture = sum(element._year_of_manufacture.year for element in self._garage) / len(self._garage)
+        return [car for car in self._garage if car._year_of_manufacture.year <= average_year_of_manufacture]
