@@ -80,7 +80,11 @@
 
 <h1 align = 'center' >demo.py<h1>
 
-> В demo.py реализована демонстрация работы с классами ElectricCar и SportCar, а также с классом Garage.
+> В demo.py реализована демонстрация работы с классами ElectricCar и SportCar:
+>
+> ElectricCar: Дочерний класс Car (Электромобили).
+>
+> SportCar: Дочерний класс Car(Спорткары).
 
 ## Создание объектов разных типов:
 
