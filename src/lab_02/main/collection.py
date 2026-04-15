@@ -7,9 +7,9 @@ from src.lab_02.main.validate import (
     validate_index,
     validate_reverse
 )
-
+from src.lab_03.main.models import ElectricCar, SportCar
 from dataclasses import dataclass, field
-from datetime import date
+
 
 @dataclass
 class Garage:
@@ -32,7 +32,7 @@ class Garage:
         validate_index(index)
         return self._garage[index]
     
-    def add(self, car: Car) -> bool:
+    def add(self, car: Car | ElectricCar | SportCar) -> bool:
 
         validate_class_car(car)
         
@@ -44,7 +44,7 @@ class Garage:
             raise IndexError
         return False
     
-    def remove(self, car: Car):
+    def remove(self, car: Car | ElectricCar | SportCar):
 
         validate_class_car(car)
 
@@ -89,6 +89,12 @@ class Garage:
         validate_reverse(reverse)
         self._garage.sort(key=lambda x: x._year_of_manufacture, reverse=reverse)
         return self._garage
+
+    def sort_by_type(self, reverse: bool):
+        
+        validate_reverse(reverse)
+        self._garage.sort(key=lambda x: x.__class__.__name__, reverse=reverse)
+        return self._garage
     
     def get_most_used(self):
         
@@ -102,3 +108,8 @@ class Garage:
         if not self._garage: return []
         average_year_of_manufacture = sum(element._year_of_manufacture.year for element in self._garage) / len(self._garage)
         return [car for car in self._garage if car._year_of_manufacture.year <= average_year_of_manufacture]
+
+    def get_vehicle_by_type(self, vehicle_type: type):
+        
+        if not self._garage: return []
+        return [car for car in self._garage if isinstance(car, vehicle_type)]
