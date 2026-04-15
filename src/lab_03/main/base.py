@@ -15,7 +15,6 @@ from .validate import (
 
 @dataclass
 class Car:
-
     # Инициализация атрибутов дата-класса Car.
 
     _brand: str
@@ -114,7 +113,7 @@ class Car:
 
         if self._mileage >= 500000:
             return "Service needed"
-            
+
         return "Service not needed" 
 
 # Инициализация класса CarFuncs, который содержит атрибуты, связанные с функциями автомобиля и методы для управления этими функциями.

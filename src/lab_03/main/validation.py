@@ -25,7 +25,6 @@ def validate_acceleration(value: int):
         raise ValueError
 
 def validate_distance(value: int):
-
     validate_type_int(value)
 
     if value <= 0:

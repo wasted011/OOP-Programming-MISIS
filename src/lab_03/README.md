@@ -143,4 +143,3 @@
 * Фильтрация по типу автомобиля:
   * `garage_examplar.filter_by_type("ElectricCar")`
   * `garage_examplar.filter_by_type("SportCar")`
-

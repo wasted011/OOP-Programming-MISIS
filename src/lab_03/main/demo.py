@@ -43,7 +43,6 @@ garage_examplar.add_car(electric_car_examplar_02)
 garage_examplar.add_car(sport_car_examplar_02)
 
 print(garage_examplar.get_all_cars())
-
 # Вызов одинакового метода и получения различных результатов:
 print(garage_examplar.get_all_cars()[0].get_service_status())
 print(garage_examplar.get_all_cars()[1].get_service_status())

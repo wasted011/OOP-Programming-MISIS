@@ -10,7 +10,6 @@ from src.lab_02.main.validate import (
 from src.lab_03.main.models import ElectricCar, SportCar
 from dataclasses import dataclass, field
 
-
 @dataclass
 class Garage:
 

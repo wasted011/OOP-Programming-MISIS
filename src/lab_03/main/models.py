@@ -13,7 +13,6 @@ class ElectricCar(Car):
         return f"ElectricCar(battery_capacity={self._battery_capacity}, charge_level={self._charge_level})"
 
     def __post_init__(self):
-
         super().__post_init__()
         validate_charge_level(self._charge_level)
 
@@ -108,5 +107,5 @@ class SportCar(Car):
 
         if self._mileage >= 100000:
             return "Service needed"
-            
+
         return super().get_service_status()
