@@ -41,7 +41,6 @@ class ElectricCar(Car):
         self._battery_capacity -= 1
 
         return f"Charge level: {self._charge_level}, Battery capacity: {self._battery_capacity}"
-
     def drive(self, distance):
 
         if self._charge_level <= 0:

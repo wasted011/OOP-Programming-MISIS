@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 
-from .validate import (
+from src.lab_01.main.validate import (
     validate_car_brand,
     validate_car_model,
     validate_mileage,

@@ -1,10 +1,10 @@
 <h1 align = 'center' >models.py</h1>
 
-> В models.py реализовано 2 дочерних класса от Car: ElectricCar и SportCar
+> В models.py реализовано 2 дочерних класса от Car: ElectricCar и SportCar:
 >
-> - ElectricCar имеет поля: battery_capacity, charge_level
+> ElectricCar имеет поля: battery_capacity, charge_level
 >
-> - SportCar имеет поля: max_speed, acceleration
+> SportCar имеет поля: max_speed, acceleration
 >
 > Оба класса наследуют все методы и поля от Car, а также добавляют свои уникальные методы и поля.
 
@@ -78,68 +78,26 @@
 
 * `get_service_status` - Метод получения статуса обслуживания спорткара (Переопределяет метод родительского класса, добавляет проверку максимальной скорости).
 
-<h1 align = 'center' >demo.py<h1>
+<h1 align="center">demo.py</h1>
 
 > В demo.py реализована демонстрация работы с классами ElectricCar и SportCar, а также с классом Garage.
 
-## Создание объектов разных типов:
+## Базовая демонстрация (`basic_demonstration`):
 
-* `electric_car_examplar` - Экземпляр класса ElectricCar.
-* `sport_car_examplar` - Экземпляр класса SportCar.
+![basic_demonstration_code](/misc/images/lab_03/basic_demonstration/basic_demonstration_code.png)
 
-## Вывод объектов:
+<p align="center"> ↓ </p>
 
-* `print(electric_car_examplar)` - Выводит информацию об электромобиле.
-* `print(sport_car_examplar)` - Выводит информацию о спорткаре.
+![basic_demonstration_terminal](/misc/images/lab_03/basic_demonstration/basic_demonstration_terminal.png)
 
-## Использование методов базовых и дочерних классов:
+## Сценарии:
 
-* `electric_car_examplar.recharge(time=30)` - Заряжает электромобиль.
-* `sport_car_examplar.drive(distance=100)` - Едет на спорткаре.
-* `electric_car_examplar.get_service_status()` - Получает статус обслуживания электромобиля.
-* `sport_car_examplar.get_service_status()` - Получает статус обслуживания спорткара.
+### 1. Полиморфизм (`scenario_1_polymorphism`):
 
-## Работа с различными типами объектов в коллекции:
+![scenario_01_code](/misc/images/lab_03/scenarios/scenario_01/scenario_01_code.png)
 
-* `garage_examplar` - Экземпляр класса Garage.
+<p align="center"> ↓ </p>
 
-## Добавление объектов в гараж:
+![scenario_01_terminal](/misc/images/lab_03/scenarios/scenario_01/scenario_01_terminal.png)
 
-* `garage_examplar.add_car(electric_car_examplar)` - Добавляет электромобиль в гараж.
-* `garage_examplar.add_car(sport_car_examplar)` - Добавляет спорткар в гараж.
 
-## Вывод всех объектов в гараже:
-
-* `print(garage_examplar.get_all_cars())` - Выводит все объекты в гараже.
-
-## Вызов одного метода, разное поведение:
-
-* `garage_examplar.get_all_cars()[0].get_service_status()` - Получает статус обслуживания первого объекта в гараже.
-* `garage_examplar.get_all_cars()[1].get_service_status()` - Получает статус обслуживания второго объекта в гараже.
-
-## Единый список объектов разных типов:
-
-* `garage_examplar.get_all_cars()` - Возвращает список всех объектов в гараже.
-
-## Вызов одинакового метода и получения различных результатов:
-
-* `garage_examplar.get_all_cars()[0].get_service_status()` - Получает статус обслуживания первого объекта в гараже.
-* `garage_examplar.get_all_cars()[1].get_service_status()` - Получает статус обслуживания второго объекта в гараже.
-* `garage_examplar.get_all_cars()[2].get_service_status()` - Получает статус обслуживания третьего объекта в гараже.
-* `garage_examplar.get_all_cars()[3].get_service_status()` - Получает статус обслуживания четвертого объекта в гараже.
-
-## Фильтрация объектов по типу:
-
-* `garage_examplar.filter_by_type("ElectricCar")` - Возвращает список объектов типа ElectricCar.
-* `garage_examplar.filter_by_type("SportCar")` - Возвращает список объектов типа SportCar.
-
-## Сценарии работы:
-
-* Добавление автомобилей в гараж:
-  * `garage_examplar.add_car(electric_car_examplar)`
-  * `garage_examplar.add_car(sport_car_examplar)`
-* Получение списка всех автомобилей:
-  * `garage_examplar.get_all_cars()`
-* Фильтрация по типу автомобиля:
-  * `garage_examplar.filter_by_type("ElectricCar")`
-  * `garage_examplar.filter_by_type("SportCar")`
