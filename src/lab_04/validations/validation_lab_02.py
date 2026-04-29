@@ -1,9 +1,8 @@
-from src.lab_01.main.model import Car
-from src.lab_03.main.models import ElectricCar, SportCar
+from src.lab_04.realization import Car
 
-def validate_class_car(value: Car | ElectricCar | SportCar):
+def validate_class_car(value: Car):
 
-    if not isinstance(value, (Car, ElectricCar, SportCar)):
+    if not isinstance(value, Car):
         raise TypeError
 
 def validate_index(value: int):
@@ -23,4 +22,3 @@ def validate_max_cars(value: int):
     
     if value < 0:
         raise ValueError
-

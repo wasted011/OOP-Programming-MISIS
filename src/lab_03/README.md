@@ -13,6 +13,7 @@
 ### Глобальные:
 
 * `dataclass` - Импорт модуля dataclass.
+
 * `Car` - Импорт класса-родителя Car.
 
 ### Локальные:
@@ -59,6 +60,7 @@
 ### Атрибуты:
 
 * `max_speed` - Максимальная скорость.
+
 * `acceleration` - Ускорение.
 
 ### Инкапсуляция:
@@ -78,18 +80,9 @@
 
 * `get_service_status` - Метод получения статуса обслуживания спорткара (Переопределяет метод родительского класса, добавляет проверку максимальной скорости).
 
-<<<<<<< HEAD
 <h1 align="center">demo.py</h1>
-=======
-<h1 align = 'center' >demo.py</h1>
->>>>>>> 1d408d7fcdf1edbe4a074bf745bd6e7c2a21913f
 
-
-> В demo.py реализована демонстрация работы с классами ElectricCar и SportCar:
->
-> ElectricCar: Дочерний класс Car (Электромобили).
->
-> SportCar: Дочерний класс Car (Спорткары).
+> В demo.py реализована демонстрация работы с классами ElectricCar и SportCar, а также с классом Garage.
 
 ## Базовая демонстрация (`basic_demonstration`):
 
@@ -101,7 +94,7 @@
 
 ## Сценарии:
 
-### 1. Полиморфизм (`scenario_1_polymorphism`):
+### 1. Полиморфизм: (`scenario_1_polymorphism`)
 
 ![scenario_01_code](/misc/images/lab_03/scenarios/scenario_01/scenario_01_code.png)
 
@@ -109,42 +102,18 @@
 
 ![scenario_01_terminal](/misc/images/lab_03/scenarios/scenario_01/scenario_01_terminal.png)
 
+### 2. Фильтрация и типы: (`scenario_2_filtering_and_types`)
 
-<<<<<<< HEAD
-=======
-## Вывод всех объектов в гараже:
+![scenario_02_code](/misc/images/lab_03/scenarios/scenario_02/scenario_02_code.png)
 
-* `print(garage_examplar.get_all_cars())` - Выводит все объекты в гараже.
+<p align="center"> ↓ </p>
 
-## Вызов одного метода, разное поведение:
+![scenario_02_terminal](/misc/images/lab_03/scenarios/scenario_02/scenario_02_terminal.png)
 
-* `garage_examplar.get_all_cars()[0].get_service_status()` - Получает статус обслуживания первого объекта в гараже.
-* `garage_examplar.get_all_cars()[1].get_service_status()` - Получает статус обслуживания второго объекта в гараже.
+### 3. Вместимость и спец. методы: (`scenario_3_inheritance`)
 
-## Единый список объектов разных типов:
+![scenario_03_code](/misc/images/lab_03/scenarios/scenario_03/scenario_03_code.png)
 
-* `garage_examplar.get_all_cars()` - Возвращает список всех объектов в гараже.
+<p align="center"> ↓ </p>
 
-## Вызов одинакового метода и получения различных результатов:
-
-* `garage_examplar.get_all_cars()[0].get_service_status()` - Получает статус обслуживания первого объекта в гараже.
-* `garage_examplar.get_all_cars()[1].get_service_status()` - Получает статус обслуживания второго объекта в гараже.
-* `garage_examplar.get_all_cars()[2].get_service_status()` - Получает статус обслуживания третьего объекта в гараже.
-* `garage_examplar.get_all_cars()[3].get_service_status()` - Получает статус обслуживания четвертого объекта в гараже.
-
-## Фильтрация объектов по типу:
-
-* `garage_examplar.filter_by_type("ElectricCar")` - Возвращает список объектов типа ElectricCar.
-* `garage_examplar.filter_by_type("SportCar")` - Возвращает список объектов типа SportCar.
-
-## Сценарии работы:
-
-* Добавление автомобилей в гараж:
-  * `garage_examplar.add_car(electric_car_examplar)`
-  * `garage_examplar.add_car(sport_car_examplar)`
-* Получение списка всех автомобилей:
-  * `garage_examplar.get_all_cars()`
-* Фильтрация по типу автомобиля:
-  * `garage_examplar.filter_by_type("ElectricCar")`
-  * `garage_examplar.filter_by_type("SportCar")`
->>>>>>> 1d408d7fcdf1edbe4a074bf745bd6e7c2a21913f
+![scenario_03_terminal](/misc/images/lab_03/scenarios/scenario_03/scenario_03_terminal.png)

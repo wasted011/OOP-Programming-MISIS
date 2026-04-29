@@ -110,6 +110,13 @@ class Car:
             and self._year_of_manufacture == value._year_of_manufacture
         )
 
+    def get_service_status(self):
+
+        if self._mileage >= 500000:
+            return "Service needed"
+
+        return "Service not needed" 
+        
 # Инициализация класса CarFuncs, который содержит атрибуты, связанные с функциями автомобиля и методы для управления этими функциями.
 
 @dataclass

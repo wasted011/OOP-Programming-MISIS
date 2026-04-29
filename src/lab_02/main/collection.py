@@ -5,7 +5,8 @@ from src.lab_01.main.validate import (
 from src.lab_02.main.validate import (
     validate_class_car,
     validate_index,
-    validate_reverse
+    validate_reverse,
+    validate_max_cars
 )
 from src.lab_03.main.models import ElectricCar, SportCar
 from dataclasses import dataclass, field
@@ -21,6 +22,12 @@ class Garage:
 
     @property
     def max_cars(self): return self._max_cars
+
+    @max_cars.setter
+    def max_cars(self, value: int) -> None:
+
+        validate_max_cars(value)
+        self._max_cars = value
 
     def __len__(self): return len(self._garage)
 
