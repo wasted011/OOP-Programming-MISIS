@@ -140,10 +140,22 @@
 
 ![for_three_code](/misc/images/lab_04/for_three/for_three_code.png)
 
+<p align="center"> ↓ </p>
+
+![for_three_terminal](/misc/images/lab_04/for_three/for_three_terminal.png)
+
 # for_four:
 
 ![for_four_code](/misc/images/lab_04/for_four/for_four_code.png)
 
+<p align="center"> ↓ </p>
+
+![for_four_terminal](/misc/images/lab_04/for_four/for_four_terminal.png)
+
 # for_five:
 
 ![for_five_code](/misc/images/lab_04/for_five/for_five_code.png)
+
+<p align="center"> ↓ </p>
+
+![for_five_terminal](/misc/images/lab_04/for_five/for_five_terminal.png)
