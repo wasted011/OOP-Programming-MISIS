@@ -1,4 +1,5 @@
-from src.lab_04.realization import Car
+# Импорт закомментирован для избежания циклической зависимости
+# from src.lab_04.realization import Car
 
 def validate_class_car(value: Car):
 
@@ -17,7 +18,7 @@ def validate_reverse(value: bool):
 
 def validate_max_cars(value: int):
 
-    if not isistance(value, int):
+    if not isinstance(value, int):
         raise TypeError
     
     if value < 0:
