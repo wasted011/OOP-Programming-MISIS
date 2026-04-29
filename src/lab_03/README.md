@@ -95,12 +95,29 @@
 ## Сценарии:
 
 ### 1. Полиморфизм: (`scenario_1_polymorphism`)
+### 1. Полиморфизм: (`scenario_1_polymorphism`)
 
 ![scenario_01_code](/misc/images/lab_03/scenarios/scenario_01/scenario_01_code.png)
 
 <p align="center"> ↓ </p>
 
 ![scenario_01_terminal](/misc/images/lab_03/scenarios/scenario_01/scenario_01_terminal.png)
+
+### 2. Фильтрация и типы: (`scenario_2_filtering_and_types`)
+
+![scenario_02_code](/misc/images/lab_03/scenarios/scenario_02/scenario_02_code.png)
+
+<p align="center"> ↓ </p>
+
+![scenario_02_terminal](/misc/images/lab_03/scenarios/scenario_02/scenario_02_terminal.png)
+
+### 3. Вместимость и спец. методы: (`scenario_3_inheritance`)
+
+![scenario_03_code](/misc/images/lab_03/scenarios/scenario_03/scenario_03_code.png)
+
+<p align="center"> ↓ </p>
+
+![scenario_03_terminal](/misc/images/lab_03/scenarios/scenario_03/scenario_03_terminal.png)
 
 ### 2. Фильтрация и типы: (`scenario_2_filtering_and_types`)
 
