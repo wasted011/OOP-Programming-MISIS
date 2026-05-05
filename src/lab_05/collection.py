@@ -1,3 +1,4 @@
+from datetime import date
 from src.lab_01.main.model import Car
 from src.lab_01.main.validate import (
     validate_mileage
@@ -11,6 +12,8 @@ from src.lab_03.main.models import ElectricCar, SportCar
 from dataclasses import dataclass, field
 from .validation_lab_05 import validate_callable
 import copy
+
+from typing import Callable
 
 @dataclass
 class Garage:
@@ -105,7 +108,7 @@ class Garage:
 
     # Сортировка (на вход принимает функцию-стратегию):
 
-    def sort_by(self, key: callable):
+    def sort_by(self, key: Callable[[], str | int | date]):
 
         validate_callable(key)
         self._garage.sort(key=key)
@@ -113,13 +116,13 @@ class Garage:
     
     # Фильтрация по функции-стратегии:
 
-    def filter_by(self, predicate: callable):
+    def filter_by(self, predicate):
 
         validate_callable(predicate)
         self._garage = [car for car in self._garage if predicate(car)]
         return self
 
-    def apply(self, operation: callable):
+    def apply(self, operation):
         
         validate_callable(operation)
         copy_collection = copy.deepcopy(self)
@@ -127,3 +130,4 @@ class Garage:
         for obj in copy_collection:
             operation(obj)
         return copy_collection
+        

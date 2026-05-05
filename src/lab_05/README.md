@@ -57,32 +57,32 @@
 
 > В demo.py реализованы функции для демонстрации работы с коллекцией автомобилей.
 
+### Локальные импорты:
+
+* `.strategies` - Импорт всех функций из strategies.py
+
+* `.collection` - Импорт класса Collection из collection.py
+
 * ## `for_three()`:
 
-![for_three_code](/misc/images/lab_05/for_three/for_three_code.png)
+![for_three_code](/misc/images/lab_05/for_three/three_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_three_terminal](/misc/images/lab_05/for_three/for_three_terminal.png)
+![for_three_terminal](/misc/images/lab_05/for_three/three_temrinal.png)
 
 * ## `for_four()`:
 
-![for_four_code](/misc/images/lab_05/for_four/for_four_code.png)
+![for_four_code](/misc/images/lab_05/for_four/four_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_four_terminal](/misc/images/lab_05/for_four/for_four_terminal.png)
+![for_four_terminal](/misc/images/lab_05/for_four/four_terminal.png)
 
 * ## `for_five()`:
 
-![for_five_code](/misc/images/lab_05/for_five/for_five_code.png)
+![for_five_code](/misc/images/lab_05/for_five/five_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_five_terminal](/misc/images/lab_05/for_five/for_five_terminal.png)
-
-
-
-
-
-
+![for_five_terminal](/misc/images/lab_05/for_five/five_terminal.png)

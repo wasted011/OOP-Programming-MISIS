@@ -63,3 +63,4 @@ class IncreaseMileageStrategy:
 class DecreaseMileageStrategy:
     def __call__(self, obj: C) -> None:
         obj._mileage *= 0.5
+        
