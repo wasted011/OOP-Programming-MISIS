@@ -1,8 +1,6 @@
 <h1 align='center'>container.py</h1>
 
->
->
-> ... 
+> В container.py реализована коллекция типизированная коллекция TypedCollection c использованием Generics.
 
 ## Импорты:
 
@@ -92,6 +90,20 @@
     
     * `map_by` - Маппинг элементов (функции-стратегии) (type: list[R]).
 
+<h1 align='center'>validate.py</h1>
+
+> Ниже приведен перечень функций используемых для валидации атрибутов/параметров классов и функций.
+
+* `validate_max_items` - Валидация максимального количества элементов (type: None)
+
+* `validate_generic_type` - Валидация типа элементов (type: None)
+
+* `validate_mileage` - Валидация пробега (type: None)
+
+* `validate_index` - Валидация индекса (type: None)
+
+* `validate_callable` - Валидация функции-стратегии (type: None)
+
 <h1 align='center'>demo.py</h1>
 
 > В demo.py реализована демонстрация работы TypedCollection.
@@ -108,38 +120,24 @@
 
 ## `for_three()`:
 
-![for_three_code](/misc/images/lab_06/for_three/for_three_code.png)
+![for_three_code](/misc/images/lab_06/for_three/three_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_three_terminal](/misc/images/lab_06/for_three/for_three_terminal.png)
+![for_three_terminal](/misc/images/lab_06/for_three/three_terminal.png)
 
 ## `for_four()`:
 
-![for_four_code](/misc/images/lab_06/for_four/for_four_code.png)
+![for_four_code](/misc/images/lab_06/for_four/four_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_four_terminal](/misc/images/lab_06/for_four/for_four_terminal.png)
+![for_four_terminal](/misc/images/lab_06/for_four/four_terminal.png)
 
 ## `for_five()`:
 
-![for_five_code](/misc/images/lab_06/for_five/for_five_code.png)
+![for_five_code](/misc/images/lab_06/for_five/five_code.png)
 
 <p align="center"> ↓ </p>
 
-![for_five_terminal](/misc/images/lab_06/for_five/for_five_terminal.png)
-
-<h1 align='center'>validate.py</h1>
-
-> Ниже приведен перечень функций используемых для валидации атрибутов/параметров классов и функций.
-
-* `validate_max_items` - Валидация максимального количества элементов (type: None)
-
-* `validate_generic_type` - Валидация типа элементов (type: None)
-
-* `validate_mileage` - Валидация пробега (type: None)
-
-* `validate_index` - Валидация индекса (type: None)
-
-* `validate_callable` - Валидация функции-стратегии (type: None)
+![for_five_terminal](/misc/images/lab_06/for_five/five_terminal.png)
