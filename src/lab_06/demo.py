@@ -99,4 +99,6 @@ def for_five():
     scorable_collection.apply(lambda x: print(f"Результат для {x._brand}: {x.recharge(100)}"))
 
 if __name__ == "__main__":
+    for_three()
+    for_four()
     for_five()

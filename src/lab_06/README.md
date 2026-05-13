@@ -143,5 +143,3 @@
 * `validate_index` - Валидация индекса (type: None)
 
 * `validate_callable` - Валидация функции-стратегии (type: None)
-
-
