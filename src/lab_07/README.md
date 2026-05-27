@@ -187,4 +187,4 @@
 
 > Демонстрация работы CLI-утилиты в терминале (Запись сессии с помощью Asciinema).
 
-![asciinema_gif](/misc/images/lab_07/session_for_lab_07.gif)
+![asciinema_gif](/misc/images/lab_07/session_for_lab.gif)
