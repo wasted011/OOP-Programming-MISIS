@@ -88,4 +88,6 @@ def for_five() -> None:
         print(f"В списке: {car}")
 
 if __name__ == "__main__":
+    for_three()
+    for_four()
     for_five()
