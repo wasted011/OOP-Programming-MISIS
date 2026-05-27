@@ -1,0 +1,10 @@
+[
+    {
+        "type": "Car",
+        "id": 200,
+        "brand": "Kia",
+        "model": "Stinger",
+        "mileage": 35000,
+        "year_of_manufacture": "2021-11-05"
+    }
+]

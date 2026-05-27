@@ -22,8 +22,7 @@ from .validations.validation_lab_02 import (
 
 from .validations.validation_lab_03 import (
     validate_battery_capacity,
-    validate_charge_level,
-    validate_time
+    validate_charge_level
 )
 
 # Реализация интерфейса сущности Car (Основная информация, уведомление о посещении сервиса если self._mileage >= 1_000_000):
@@ -87,7 +86,6 @@ class Car(CarInterface, Printable):
 
         validate_distance(distance)
         self._mileage += distance
-        return self._mileage
 
     def get_info(self):
         return f"Car(brand={self._brand}, model={self._model}, mileage={self._mileage}, year_of_manufacture={self._year_of_manufacture})"
@@ -104,7 +102,7 @@ def proccess_car(obj: Printable) -> str:
 # Реализация коллекции Garage через интерфейс GarageInterface:
 
 @dataclass
-class Garage(GarageInterface, Printable):
+class Garage(GarageInterface):
     
     _garage: list[CarInterface] = field(default_factory=list)
     _max_cars: int = 10
@@ -177,13 +175,18 @@ class Garage(GarageInterface, Printable):
 
         return self._garage.copy()
 
-    def filter_by_interface(self, interface_type: type) -> list[CarInterface | GarageInterface]:
-         
-         validate_interfaces(interface_type)
-         return [object for object in self._garage if isinstance(object, interface_type)]
+    # Ф-ия фильтрация объектов коллекции по интерфейсу:
 
-    def get_info(self):
-        return f"Garage(cars={len(self._garage)}, max_cars={self._max_cars})"
+    def filter_by_interface(self, interface_type: type) -> list[CarInterface | GarageInterface]:
+        
+        validate_interfaces(interface_type)
+        return [object for object in self._garage if isinstance(object, interface_type)]
+    
+    # Архитектурное поведение:
+
+    def sort_by_mileage(self) -> list[CarInterface]:
+        
+        return sorted(self._garage, key=lambda car: car.mileage)
 
 # Реализация дочернего класса Car через интерфейс CarInterface:
 

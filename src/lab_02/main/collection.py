@@ -37,7 +37,7 @@ class Garage:
 
         validate_index(index)
         return self._garage[index]
-    
+
     def add(self, car: Car | ElectricCar | SportCar) -> bool:
 
         validate_class_car(car)
@@ -119,3 +119,9 @@ class Garage:
         
         if not self._garage: return []
         return [car for car in self._garage if isinstance(car, vehicle_type)]
+    
+    def filter_by_interface(self, interface: type):
+        
+        
+        if not self._garage: return []
+        return [car for car in self._garage if isinstance(car, interface)]

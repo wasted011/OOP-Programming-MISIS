@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
+from multiprocessing import Value
 
 from .validate import (
     validate_car_brand,
@@ -18,14 +19,14 @@ class Car:
 
     # Инициализация атрибутов дата-класса Car.
 
-    _brand: str
-    _model: str
-    _mileage: int
-    _year_of_manufacture: date
+    _brand: str 
+    _model: str 
+    _mileage: int 
+    _year_of_manufacture: date 
 
     # Валидация атрибутов дата-класса Car при его создании и при изменении атрибутов через сеттеры. 
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
 
         if not validate_car_brand(self._brand):
             raise ValueError("Invalid brand value.")
@@ -148,7 +149,7 @@ class CarFuncs:
 
     # Валидация атрибутов дата-класса CarFuncs при его создании.
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
 
         
         if not validate_lights_signals(self.lights, self.signals):
@@ -203,7 +204,7 @@ class CarFuncs:
                     self.signals = not (self.signals)
                     return f"Signals turned {'On' if self.signals else 'Off'}."
 
-            return ValueError(f"Cannot toggle {value}. The engine is off.")
+            raise ValueError(f"Cannot toggle {value}. The engine is off.")
 
         return f"Invalid function: {value}. Valid options are: lights, signals."
 

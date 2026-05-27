@@ -1,0 +1,12 @@
+[
+    {
+        "type": "ElectricCar",
+        "id": 1,
+        "brand": "Tesla",
+        "model": "Model S",
+        "mileage": 2000,
+        "year_of_manufacture": "2023-01-01",
+        "battery_capacity": 100000,
+        "charge_level": 100
+    }
+]

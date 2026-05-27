@@ -24,3 +24,4 @@ def validate_max_cars(value: int):
     if value < 0:
         raise ValueError
 
+

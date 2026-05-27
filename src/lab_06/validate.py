@@ -1,4 +1,5 @@
 from typing import Any
+
 def validate_max_items(value: int) -> None:
 
     if not isinstance(value, int):
