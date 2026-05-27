@@ -186,5 +186,7 @@
 <h1 align = 'center'>Asciinema (⭐)</h1>
 
 > Демонстрация работы CLI-утилиты в терминале (Запись сессии с помощью Asciinema).
+> 
+> (**P.S. Последний La Ferrari в 2017 выпустили, чуть ошибся**).
 
 ![asciinema_gif](/misc/images/lab_07/session_for_lab.gif)
