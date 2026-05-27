@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "type": "SportCar",
+        "id": 50,
+        "brand": "Ferrari",
+        "model": "F8",
+        "mileage": 1000,
+        "year_of_manufacture": "2023-01-01",
+        "max_speed": 340,
+        "acceleration": 2.9
+    }
+]

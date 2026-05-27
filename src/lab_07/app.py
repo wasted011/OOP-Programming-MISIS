@@ -1,7 +1,12 @@
 from typing import Callable, Any
-from models import Car
-from exceptions import CarNotFoundError, DuplicateCarError
+from datetime import date
+from models import Car, ElectricCar, SportCar
+from exceptions import CarNotFoundError, DuplicateCarError, InvalidDataError
 from storage import save_collection, load_collection
+from validate import (
+    validate_id, validate_string, validate_mileage, 
+    validate_year, validate_positive_int, validate_positive_float
+)
 
 class CarApp:
     """
@@ -16,17 +21,57 @@ class CarApp:
         """
         self._storage_path: str = storage_path
         self._cars: list[Car] = load_collection(self._storage_path)
+        self._types_map = {
+            "standard": Car,
+            "electric": ElectricCar,
+            "sport": SportCar
+        }
 
-    def add_car(self, car: Car) -> None:
+    def add_car(self, car_type: str, **kwargs) -> Car:
         """
-        Добавляет новый автомобиль в коллекцию.
+        Создает и добавляет новый автомобиль в коллекцию.
         
-        :param car: Объект автомобиля для добавления.
+        :param car_type: Тип автомобиля ('standard', 'electric', 'sport').
+        :param kwargs: Параметры для конструктора автомобиля.
+        :return: Созданный объект автомобиля.
         :raises DuplicateCarError: Если автомобиль с таким ID уже существует.
+        :raises InvalidDataError: Если данные некорректны.
         """
-        if any(c.id == car.id for c in self._cars):
-            raise DuplicateCarError(car.id)
-        self._cars.append(car)
+        try:
+            # Общая валидация
+            validate_id(kwargs.get("id"))
+            validate_string(kwargs.get("brand"), "Марка")
+            validate_string(kwargs.get("model"), "Модель")
+            validate_mileage(kwargs.get("mileage"))
+            
+            year_val = kwargs.get("year_of_manufacture")
+            if isinstance(year_val, date):
+                validate_year(year_val.year)
+            else:
+                validate_year(year_val)
+                kwargs["year_of_manufacture"] = date(int(year_val), 1, 1)
+
+            # Валидация специфичных полей
+            if car_type == "electric":
+                validate_positive_int(kwargs.get("battery_capacity"), "Емкость батареи")
+                validate_positive_int(kwargs.get("charge_level"), "Уровень заряда")
+            elif car_type == "sport":
+                validate_positive_int(kwargs.get("max_speed"), "Максимальная скорость")
+                validate_positive_float(kwargs.get("acceleration"), "Разгон")
+
+            if any(c.id == kwargs["id"] for c in self._cars):
+                raise DuplicateCarError(kwargs["id"])
+
+            cls = self._types_map.get(car_type)
+            if not cls:
+                raise InvalidDataError(f"Неизвестный тип автомобиля: {car_type}")
+
+            new_car = cls(**kwargs)
+            self._cars.append(new_car)
+            return new_car
+            
+        except ValueError as e:
+            raise InvalidDataError(str(e))
 
     def delete_car(self, car_id: int) -> None:
         """
@@ -70,6 +115,24 @@ class CarApp:
         :return: Список автомобилей, соответствующих условию.
         """
         return [car for car in self._cars if criteria(car)]
+
+    def filter_electric_cars(self) -> list[Car]:
+        """
+        Возвращает только электромобили из коллекции.
+        """
+        return [c for c in self._cars if isinstance(c, ElectricCar)]
+
+    def search_by_brand(self, brand: str) -> list[Car]:
+        """Поиск по марке (без учета регистра)."""
+        return [c for c in self._cars if c.brand.lower() == brand.lower()]
+
+    def search_by_model(self, model: str) -> list[Car]:
+        """Поиск по модели (без учета регистра)."""
+        return [c for c in self._cars if c.model.lower() == model.lower()]
+
+    def filter_by_mileage(self, min_mileage: int) -> list[Car]:
+        """Фильтрация по минимальному пробегу."""
+        return [c for c in self._cars if c.mileage > min_mileage]
 
     def sort_cars(self, key_func: Callable[[Car], Any], reverse: bool = False) -> None:
         """

@@ -1,8 +1,9 @@
-from datetime import date
-from typing import Optional, Any, Callable
+from typing import Optional, Any, Callable, TYPE_CHECKING
 from app import CarApp
-from models import Car, ElectricCar, SportCar
-from exceptions import CarError, CarNotFoundError, DuplicateCarError
+from exceptions import CarError
+
+if TYPE_CHECKING:
+    from models import Car
 
 class ConsoleInterface:
     """
@@ -26,18 +27,18 @@ class ConsoleInterface:
             "5": self._filter_dialog,
             "6": self._sort_dialog
         }
-        # Диспетчер создания типов автомобилей
-        self._creators: dict[str, Callable[[dict[str, Any]], Car]] = {
-            "1": self._create_standard,
-            "2": self._create_electric,
-            "3": self._create_sport
+        # Диспетчер сбора данных для разных типов
+        self._data_collectors: dict[str, tuple[str, Callable[[dict[str, Any]], dict[str, Any]]]] = {
+            "1": ("standard", self._collect_standard_data),
+            "2": ("electric", self._collect_electric_data),
+            "3": ("sport", self._collect_sport_data)
         }
 
     def _get_input(self, prompt: str) -> str:
         """Вспомогательный метод для получения ввода."""
         return input(prompt).strip()
 
-    def _display_cars(self, cars: Optional[list[Car]] = None) -> None:
+    def _display_cars(self, cars: Optional[list['Car']] = None) -> None:
         """Выводит список автомобилей в консоль."""
         target_list = cars if cars is not None else self._app.get_all_cars()
         
@@ -50,31 +51,33 @@ class ConsoleInterface:
             print(f"Запись: {car}")
         print("---------------------------------------------")
 
-    def _create_standard(self, args: dict[str, Any]) -> Car:
-        """Создает стандартный автомобиль."""
-        return Car(**args)
+    def _collect_standard_data(self, args: dict[str, Any]) -> dict[str, Any]:
+        """Возвращает данные для стандартного автомобиля."""
+        return args
 
-    def _create_electric(self, args: dict[str, Any]) -> ElectricCar:
-        """Создает электромобиль с дополнительными параметрами."""
-        cap = int(self._get_input("Введите емкость аккумулятора (кВт*ч): "))
-        level = int(self._get_input("Введите текущий уровень заряда (%): "))
-        return ElectricCar(**args, battery_capacity=cap, charge_level=level)
+    def _collect_electric_data(self, args: dict[str, Any]) -> dict[str, Any]:
+        """Собирает дополнительные параметры для электромобиля."""
+        args["battery_capacity"] = int(self._get_input("Введите емкость аккумулятора (кВт*ч): "))
+        args["charge_level"] = int(self._get_input("Введите текущий уровень заряда (%): "))
+        return args
 
-    def _create_sport(self, args: dict[str, Any]) -> SportCar:
-        """Создает спорткар с дополнительными параметрами."""
-        speed = int(self._get_input("Введите максимальную скорость (км/ч): "))
-        acc = float(self._get_input("Введите время разгона 0-100 (сек): "))
-        return SportCar(**args, max_speed=speed, acceleration=acc)
+    def _collect_sport_data(self, args: dict[str, Any]) -> dict[str, Any]:
+        """Собирает дополнительные параметры для спорткара."""
+        args["max_speed"] = int(self._get_input("Введите максимальную скорость (км/ч): "))
+        args["acceleration"] = float(self._get_input("Введите время разгона 0-100 (сек): "))
+        return args
 
     def _add_car_dialog(self) -> None:
         """Диалог добавления нового транспортного средства."""
         print("\nТипы транспорта:\n1. Стандартный автомобиль\n2. Электромобиль\n3. Спортивный автомобиль")
         choice = self._get_input("Выберите тип для добавления: ")
         
-        creator = self._creators.get(choice)
-        if not creator:
+        collector_info = self._data_collectors.get(choice)
+        if not collector_info:
             print("Ошибка: Выбран неизвестный тип транспорта.")
             return
+
+        car_type, collector_func = collector_info
 
         try:
             car_id = int(self._get_input("Введите уникальный ID: "))
@@ -88,11 +91,11 @@ class ConsoleInterface:
                 "brand": brand,
                 "model": model,
                 "mileage": mileage,
-                "year_of_manufacture": date(year, 1, 1)
+                "year_of_manufacture": year
             }
 
-            car = creator(common_args)
-            self._app.add_car(car)
+            all_args = collector_func(common_args)
+            self._app.add_car(car_type, **all_args)
             print("Результат: Транспортное средство успешно добавлено в базу.")
 
         except (ValueError, CarError) as e:
@@ -120,11 +123,11 @@ class ConsoleInterface:
         
         if choice == "1":
             brand = self._get_input("Введите марку для поиска: ")
-            results = self._app.filter_cars(lambda c: c.brand.lower() == brand.lower())
+            results = self._app.search_by_brand(brand)
             self._display_cars(results)
         elif choice == "2":
             model = self._get_input("Введите модель для поиска: ")
-            results = self._app.filter_cars(lambda c: c.model.lower() == model.lower())
+            results = self._app.search_by_model(model)
             self._display_cars(results)
         else:
             print("Ошибка: Некорректный выбор параметра поиска.")
@@ -137,12 +140,12 @@ class ConsoleInterface:
         if choice == "1":
             try:
                 limit = int(self._get_input("Введите минимальный пробег: "))
-                results = self._app.filter_cars(lambda c: c.mileage > limit)
+                results = self._app.filter_by_mileage(limit)
                 self._display_cars(results)
             except ValueError:
                 print("Ошибка: Введено некорректное числовое значение.")
         elif choice == "2":
-            results = self._app.filter_cars(lambda c: isinstance(c, ElectricCar))
+            results = self._app.filter_electric_cars()
             self._display_cars(results)
         else:
             print("Ошибка: Некорректный выбор критерия.")

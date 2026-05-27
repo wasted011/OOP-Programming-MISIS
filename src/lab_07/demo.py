@@ -23,8 +23,8 @@ def for_three() -> None:
     app._cars = []
 
     print("\nШаг 1: Добавление стандартных автомобилей в коллекцию...")
-    app.add_car(Car(1, "Toyota", "Corolla", 15000, date(2021, 5, 20)))
-    app.add_car(Car(2, "Honda", "Civic", 22000, date(2020, 3, 15)))
+    app.add_car("standard", id=1, brand="Toyota", model="Corolla", mileage=15000, year_of_manufacture=2021)
+    app.add_car("standard", id=2, brand="Honda", mileage=22000, model="Civic", year_of_manufacture=2020)
     
     print("Список в памяти:")
     for car in app.get_all_cars():
@@ -47,16 +47,16 @@ def for_four() -> None:
     
     print("\nШаг 1: Наполнение коллекции объектами разных типов...")
     app._cars = [] 
-    app.add_car(ElectricCar(10, "Tesla", "Model 3", 5000, date(2022, 1, 1), 75, 100))
+    app.add_car("electric", id=10, brand="Tesla", model="Model 3", mileage=5000, year_of_manufacture=2022, battery_capacity=75, charge_level=100)
     
     print("Шаг 2: Тестирование поиска по марке 'Tesla'...")
-    results = app.filter_cars(lambda c: c.brand.lower() == "tesla")
+    results = app.search_by_brand("Tesla")
     for car in results:
         print(f"Найдено: {car}")
         
     print("\nШаг 3: Демонстрация перехвата DuplicateCarError (ID: 10)...")
     try:
-        app.add_car(Car(10, "Audi", "A4", 10000, date(2021, 1, 1)))
+        app.add_car("standard", id=10, brand="Audi", model="A4", mileage=10000, year_of_manufacture=2021)
     except DuplicateCarError as e:
         print(f"Информационное сообщение: {e}")
 
@@ -73,7 +73,7 @@ def for_five() -> None:
     print("\nШаг 1: Создание SportCar и сохранение состояния...")
     app_save = CarApp(storage_path=storage_path)
     app_save._cars = []
-    app_save.add_car(SportCar(50, "Ferrari", "F8", 1000, date(2023, 1, 1), 340, 2.9))
+    app_save.add_car("sport", id=50, brand="Ferrari", model="F8", mileage=1000, year_of_manufacture=2023, max_speed=340, acceleration=2.9)
     app_save.save_data()
     
     print("\nШаг 2: Симуляция перезапуска и автоматической загрузки...")
@@ -82,7 +82,7 @@ def for_five() -> None:
         print(f"Загружено из файла: {car}")
         
     print("\nШаг 3: Демонстрация сортировки по возрастанию пробега...")
-    app_load.add_car(Car(51, "Lada", "Vesta", 30000, date(2018, 1, 1)))
+    app_load.add_car("standard", id=51, brand="Lada", model="Vesta", mileage=30000, year_of_manufacture=2018)
     app_load.sort_cars(lambda c: c.mileage)
     for car in app_load.get_all_cars():
         print(f"В списке: {car}")

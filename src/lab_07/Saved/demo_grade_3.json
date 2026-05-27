@@ -5,7 +5,7 @@
         "brand": "Toyota",
         "model": "Corolla",
         "mileage": 15000,
-        "year_of_manufacture": "2021-05-20"
+        "year_of_manufacture": "2021-01-01"
     },
     {
         "type": "Car",
@@ -13,6 +13,6 @@
         "brand": "Honda",
         "model": "Civic",
         "mileage": 22000,
-        "year_of_manufacture": "2020-03-15"
+        "year_of_manufacture": "2020-01-01"
     }
 ]
