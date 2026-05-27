@@ -1,9 +1,7 @@
-from typing import Optional, Any, Callable, TYPE_CHECKING
+from typing import Optional, Any, Callable
 from app import CarApp
 from exceptions import CarError
-
-if TYPE_CHECKING:
-    from models import Car
+from models import Car
 
 class ConsoleInterface:
     """
